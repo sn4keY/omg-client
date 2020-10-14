@@ -46,3 +46,7 @@ interface OMGApiService {
     @POST("/authentication/login")
     fun login() : Call<String> // TODO: replace String with LoginViewModel
 }
+
+object OMGApi {
+    val retrofitService: OMGApiService by lazy { retrofit.create(OMGApiService::class.java) }
+}
