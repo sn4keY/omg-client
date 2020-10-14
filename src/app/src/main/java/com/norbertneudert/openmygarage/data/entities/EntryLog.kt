@@ -9,7 +9,7 @@ data class EntryLog (
     @PrimaryKey(autoGenerate = true)
     var logId: Long = 0L,
 
-    @ColumnInfo(name = "entry time")
+    @ColumnInfo(name = "entry_time")
     val entryTime: Long = Long.MIN_VALUE,
 
     @ColumnInfo(name = "plate")
