@@ -17,7 +17,7 @@ private val moshi = Moshi.Builder()
     .build()
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
-    //.addCallAdapterFactory(CoroutineCallAdapterFactory())
+    //.addCallAdapterFactory(CoroutineCallAdapterFactory()) // TODO: add coroutines
     .baseUrl(BASE_URL)
     .build()
 
@@ -29,7 +29,7 @@ interface OMGApiService {
     fun getEntryLogs() : Deferred<List<EntryLog>>
 
     @GET("/entrylog/picture/{logId}")
-    fun getEntryLogPicture(@Path("logId") logId: Long) : Call<Bitmap>
+    fun getEntryLogPicture(@Path("logId") logId: Long) : Call<Bitmap> // TODO: test
 
     @GET("/storedplate/getall")
     fun getStoredPlates() : Deferred<List<StoredPlate>>
@@ -44,5 +44,5 @@ interface OMGApiService {
     fun updateStoredPlate(@Body storedPlate: StoredPlate) : Call<Void>
 
     @POST("/authentication/login")
-    fun login() : Call<String>
+    fun login() : Call<String> // TODO: replace String with LoginViewModel
 }
