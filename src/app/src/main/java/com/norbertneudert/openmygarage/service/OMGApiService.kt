@@ -3,6 +3,8 @@ package com.norbertneudert.openmygarage.service
 import android.graphics.Bitmap
 import com.norbertneudert.openmygarage.data.entities.EntryLog
 import com.norbertneudert.openmygarage.data.entities.StoredPlate
+import com.norbertneudert.openmygarage.service.models.LoginViewModel
+import com.norbertneudert.openmygarage.service.models.TokenViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -44,7 +46,7 @@ interface OMGApiService {
     fun updateStoredPlate(@Body storedPlate: StoredPlate) : Call<Void>
 
     @POST("/authentication/login")
-    fun login() : Call<String> // TODO: replace String with LoginViewModel
+    fun login(@Body loginViewModel: LoginViewModel) : Deferred<TokenViewModel>
 }
 
 object OMGApi {
