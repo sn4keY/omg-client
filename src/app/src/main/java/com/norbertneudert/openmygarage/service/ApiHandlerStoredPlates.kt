@@ -6,7 +6,6 @@ import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Exception
 
 class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
     private var handlerJob = Job()
@@ -55,13 +54,8 @@ class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
 
     fun refreshDatabase() : Boolean {
         coroutineScope.launch {
-            val getStoredPlatesDeferred = OMGApi.retrofitService.getStoredPlates()
-            try {
-                val listResult = getStoredPlatesDeferred.await()
-                populateStoredPlates(listResult)
-            } catch (e: Exception) {
-
-            }
+            val getStoredPlates = OMGApi.retrofitService.getStoredPlates()
+            populateStoredPlates(getStoredPlates)
         }
         return false
     }

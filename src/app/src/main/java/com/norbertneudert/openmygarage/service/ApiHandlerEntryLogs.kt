@@ -3,7 +3,6 @@ package com.norbertneudert.openmygarage.service
 import com.norbertneudert.openmygarage.data.dao.EntryLogDao
 import com.norbertneudert.openmygarage.data.entities.EntryLog
 import kotlinx.coroutines.*
-import java.lang.Exception
 
 class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLogDao){
     private var handlerJob = Job()
@@ -32,13 +31,8 @@ class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLog
 
     fun refreshDatabase() : Boolean {
         coroutineScope.launch {
-            val getEntryLogsDeferred = OMGApi.retrofitService.getEntryLogs()
-            try {
-                val listResult = getEntryLogsDeferred.await()
-                populateEntryLogs(listResult)
-            } catch (e: Exception) {
-                // TODO: logging
-            }
+            val getEntryLogs = OMGApi.retrofitService.getEntryLogs()
+            populateEntryLogs(getEntryLogs)
         }
         return false
     }

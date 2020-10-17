@@ -8,7 +8,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class ApiHandlerAuthentication(private val activity: Activity) {
     private var handlerJob = Job()
@@ -16,21 +15,20 @@ class ApiHandlerAuthentication(private val activity: Activity) {
 
     fun login(loginViewModel: LoginViewModel) {
         coroutineScope.launch {
-            val tokenViewModelDeferred = OMGApi.retrofitService.login(loginViewModel)
-            try {
-                val tokenViewModel = tokenViewModelDeferred.await()
-                saveToken(tokenViewModel)
-            } catch (e: Exception) {
-
-            }
+            onLogin(loginViewModel)
         }
     }
 
-    private fun saveToken(tokenViewModel: TokenViewModel) {
+    private suspend fun onLogin(loginViewModel: LoginViewModel) {
+        val tokenViewModel = OMGApi.retrofitService.login(loginViewModel)
+        saveToken(tokenViewModel)
+    }
+
+    private fun saveToken(tokenViewModel: TokenViewModel?) {
         val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
         with( sharedPref.edit() ) {
-            putString("token", tokenViewModel.token)
-            putLong("expiration", tokenViewModel.expiration.time)
+            putString("token", tokenViewModel?.token)
+            putString("expiration", tokenViewModel?.expiration)
             apply()
         }
     }
