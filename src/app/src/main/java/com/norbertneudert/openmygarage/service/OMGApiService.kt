@@ -9,44 +9,44 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
-private const val BASE_URL = "https://192.168.1.180:44383/api"
+private const val BASE_URL = "http://192.168.1.180/api/"
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
-    //.addCallAdapterFactory(CoroutineCallAdapterFactory()) // TODO: add coroutines
     .baseUrl(BASE_URL)
     .build()
 
 interface OMGApiService {
-    @GET("/main/gate")
+    @GET("main/gate")
     fun openGate() : Call<Void>
 
-    @GET("/entrylog/getall")
-    fun getEntryLogs() : Deferred<List<EntryLog>>
+    @GET("entrylog/getall")
+    suspend fun getEntryLogs() : List<EntryLog>
 
-    @GET("/entrylog/picture/{logId}")
-    fun getEntryLogPicture(@Path("logId") logId: Long) : Call<Bitmap> // TODO: test
+    @GET("entrylog/picture/{logId}")
+    suspend fun getEntryLogPicture(@Path("logId") logId: Long) : Bitmap // TODO: test
 
-    @GET("/storedplate/getall")
-    fun getStoredPlates() : Deferred<List<StoredPlate>>
+    @GET("storedplate/getall")
+    suspend fun getStoredPlates() : List<StoredPlate>
 
-    @POST("/storedplate/add")
+    @POST("storedplate/add")
     fun addStoredPlate(@Body storedPlate: StoredPlate) : Call<Void>
 
-    @DELETE("/storedplate/delete")
+    @DELETE("storedplate/delete")
     fun deleteStoredPlate(@Body storedPlate: StoredPlate) : Call<Void>
 
-    @POST("/storedplate/update")
+    @POST("storedplate/update")
     fun updateStoredPlate(@Body storedPlate: StoredPlate) : Call<Void>
 
-    @POST("/authentication/login")
-    fun login(@Body loginViewModel: LoginViewModel) : Deferred<TokenViewModel>
+    @POST("authentication/login")
+    suspend fun login(@Body loginViewModel: LoginViewModel) : TokenViewModel
 }
 
 object OMGApi {
