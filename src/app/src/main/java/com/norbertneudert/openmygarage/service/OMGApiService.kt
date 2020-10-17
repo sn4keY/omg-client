@@ -25,25 +25,25 @@ private val retrofit = Retrofit.Builder()
 
 interface OMGApiService {
     @GET("main/gate")
-    fun openGate() : Call<Void>
+    fun openGate(@Header("Authorization") token: String) : Call<Void>
 
     @GET("entrylog/getall")
-    suspend fun getEntryLogs() : List<EntryLog>
+    suspend fun getEntryLogs(@Header("Authorization") token: String) : List<EntryLog>
 
     @GET("entrylog/picture/{logId}")
-    suspend fun getEntryLogPicture(@Path("logId") logId: Long) : Bitmap // TODO: test
+    suspend fun getEntryLogPicture(@Path("logId") logId: Long, @Header("Authorization") token: String) : Bitmap // TODO: test
 
     @GET("storedplate/getall")
-    suspend fun getStoredPlates() : List<StoredPlate>
+    suspend fun getStoredPlates(@Header("Authorization") token: String) : List<StoredPlate>
 
     @POST("storedplate/add")
-    fun addStoredPlate(@Body storedPlate: StoredPlate) : Call<Void>
+    fun addStoredPlate(@Body storedPlate: StoredPlate, @Header("Authorization") token: String) : Call<Void>
 
     @DELETE("storedplate/delete")
-    fun deleteStoredPlate(@Body storedPlate: StoredPlate) : Call<Void>
+    fun deleteStoredPlate(@Body storedPlate: StoredPlate, @Header("Authorization") token: String) : Call<Void>
 
     @POST("storedplate/update")
-    fun updateStoredPlate(@Body storedPlate: StoredPlate) : Call<Void>
+    fun updateStoredPlate(@Body storedPlate: StoredPlate, @Header("Authorization") token: String) : Call<Void>
 
     @POST("authentication/login")
     suspend fun login(@Body loginViewModel: LoginViewModel) : TokenViewModel
