@@ -1,10 +1,12 @@
 package com.norbertneudert.openmygarage.service
 
+import android.app.Activity
 import com.norbertneudert.openmygarage.data.dao.EntryLogDao
 import com.norbertneudert.openmygarage.data.entities.EntryLog
+import com.norbertneudert.openmygarage.util.Util
 import kotlinx.coroutines.*
 
-class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLogDao){
+class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLogDao, private val activity: Activity){
     private var handlerJob = Job()
     private val coroutineScope = CoroutineScope(handlerJob + Dispatchers.Main)
 
@@ -17,11 +19,11 @@ class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLog
         @Volatile
         private var INSTANCE: ApiHandlerEntryLogs? = null
 
-        fun getInstance(entryLogsDao: EntryLogDao) : ApiHandlerEntryLogs {
+        fun getInstance(entryLogsDao: EntryLogDao, activity: Activity) : ApiHandlerEntryLogs {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
-                    instance = ApiHandlerEntryLogs(entryLogsDao)
+                    instance = ApiHandlerEntryLogs(entryLogsDao, activity)
                     INSTANCE = instance
                 }
                 return instance
@@ -31,7 +33,8 @@ class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLog
 
     fun refreshDatabase() : Boolean {
         coroutineScope.launch {
-            val getEntryLogs = OMGApi.retrofitService.getEntryLogs()
+            val token = "Bearer " + Util.getToken(activity)?.token
+            val getEntryLogs = OMGApi.retrofitService.getEntryLogs(token)
             populateEntryLogs(getEntryLogs)
         }
         return false
