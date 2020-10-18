@@ -25,7 +25,7 @@ class ApiHandlerAuthentication(private val activity: Activity) {
     }
 
     private fun saveToken(tokenViewModel: TokenViewModel?) {
-        val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
+        val sharedPref = activity.getSharedPreferences("API_TOKEN", Context.MODE_PRIVATE)
         with( sharedPref.edit() ) {
             putString("token", tokenViewModel?.token)
             putString("expiration", tokenViewModel?.expiration)
