@@ -31,5 +31,12 @@ class Util {
                 apply()
             }
         }
+
+        fun getTokenExpirationInLong(activity: Activity) : Long {
+            val epochMicrotimeDiff = 621355968000000000L
+            val sharedPref = activity.getSharedPreferences("API_TOKEN", Context.MODE_PRIVATE)
+            val expiration = sharedPref.getString("expiration", "")!!.toLong()
+            return (expiration - epochMicrotimeDiff) / 10000
+        }
     }
 }
