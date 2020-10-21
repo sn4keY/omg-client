@@ -1,10 +1,8 @@
 package com.norbertneudert.openmygarage
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.norbertneudert.openmygarage.service.models.TokenViewModel
 import com.norbertneudert.openmygarage.util.Util
 
 class MainEmptyActivity : AppCompatActivity() {
@@ -14,10 +12,10 @@ class MainEmptyActivity : AppCompatActivity() {
         val activityIntent: Intent
 
         val token = Util.getToken(this)
-        if (token?.token!!.isNotEmpty()) {
-            activityIntent = Intent(this.applicationContext, MainActivity::class.java)
+        activityIntent = if (token?.token!!.isNotEmpty()) {
+            Intent(this.applicationContext, MainActivity::class.java)
         } else {
-            activityIntent = Intent(this.applicationContext, LoginActivity::class.java)
+            Intent(this.applicationContext, LoginActivity::class.java)
         }
 
         startActivity(activityIntent)
