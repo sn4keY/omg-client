@@ -1,4 +1,4 @@
-package com.norbertneudert.openmygarage.service
+package com.norbertneudert.openmygarage.service.auth
 
 import android.app.Activity
 import com.norbertneudert.openmygarage.service.models.LoginViewModel
