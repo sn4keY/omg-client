@@ -12,7 +12,6 @@ import retrofit2.Response
 class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
     private var handlerJob = Job()
     private val coroutineScope = CoroutineScope(handlerJob + Dispatchers.Main)
-    private val token = "Bearer " + Util.getToken(activity)?.token
 
     init {
         clearDatabase()
@@ -20,7 +19,7 @@ class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
     }
 
     fun addStoredPlate(storedPlate: StoredPlate) {
-        OMGApi.retrofitService.addStoredPlate(storedPlate, token).enqueue(object: Callback<Void> {
+        OMGApi.retrofitService.addStoredPlate(storedPlate).enqueue(object: Callback<Void> {
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 // TODO("log")
             }
@@ -32,7 +31,7 @@ class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
     }
 
     fun deleteStoredPlate(storedPlate: StoredPlate) {
-        OMGApi.retrofitService.deleteStoredPlate(storedPlate, token).enqueue(object: Callback<Void> {
+        OMGApi.retrofitService.deleteStoredPlate(storedPlate).enqueue(object: Callback<Void> {
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 // TODO("log")
             }
@@ -44,7 +43,7 @@ class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
     }
 
     fun updateStoredPlate(storedPlate: StoredPlate) {
-        OMGApi.retrofitService.updateStoredPlate(storedPlate, token).enqueue(object: Callback<Void>{
+        OMGApi.retrofitService.updateStoredPlate(storedPlate).enqueue(object: Callback<Void>{
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 // TODO("log")
             }
@@ -57,7 +56,7 @@ class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
 
     fun refreshDatabase() : Boolean {
         coroutineScope.launch {
-            val getStoredPlates = OMGApi.retrofitService.getStoredPlates(token)
+            val getStoredPlates = OMGApi.retrofitService.getStoredPlates()
             populateStoredPlates(getStoredPlates)
         }
         return false
