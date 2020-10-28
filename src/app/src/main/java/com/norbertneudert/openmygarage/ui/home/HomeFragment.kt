@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         val dataSource = InAppDatabase.getInstance(requireContext()).entryLogDao
-        apiHandler = ApiHandlerEntryLogs.getInstance(dataSource, requireActivity())
+        apiHandler = ApiHandlerEntryLogs.getInstance(dataSource)
         val application = requireNotNull(this.activity).application
         val viewModelFactory = HomeFragmentViewModelFactory(dataSource, application)
         homeFragmentViewModel = ViewModelProviders.of(this, viewModelFactory).get(HomeFragmentViewModel::class.java)

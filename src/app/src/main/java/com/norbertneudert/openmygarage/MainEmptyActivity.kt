@@ -10,8 +10,11 @@ class MainEmptyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val activityIntent: Intent
+        val util = Util.getInstance()
+        util.setContext(applicationContext)
+        clearSharedPreferences()
 
-        val token = Util.getToken(this)
+        val token = util.getToken()
         activityIntent = if (token?.token!!.isNotEmpty()) {
             Intent(this.applicationContext, MainActivity::class.java)
         } else {
@@ -20,5 +23,10 @@ class MainEmptyActivity : AppCompatActivity() {
 
         startActivity(activityIntent)
         finish()
+    }
+
+    private fun clearSharedPreferences() {
+        Util.getInstance().destroyToken()
+        Util.getInstance().destroyLogin()
     }
 }

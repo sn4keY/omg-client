@@ -23,7 +23,7 @@ class EntryLogAdapter : ListAdapter<EntryLog, EntryLogAdapter.ViewHolder>(LogDif
     class ViewHolder private constructor(val binding: LogItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: EntryLog) {
             binding.plateLogTw.text = item.plate
-            binding.timeLogTw.text = Util.getFormattedDateFromLong(item.entryTime)
+            binding.timeLogTw.text = Util.getInstance().getFormattedDateFromLong(item.entryTime)
         }
         companion object {
             fun from(parent: ViewGroup): ViewHolder {

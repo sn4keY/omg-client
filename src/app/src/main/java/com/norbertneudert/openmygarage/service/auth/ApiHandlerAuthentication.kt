@@ -26,6 +26,6 @@ class ApiHandlerAuthentication() {
         val value = GlobalScope.async {
             OMGApi.retrofitService.login(loginViewModel)
         }
-        Util.saveToken(activity, value.await())
+        Util.getInstance().saveToken(value.await())
     }
 }

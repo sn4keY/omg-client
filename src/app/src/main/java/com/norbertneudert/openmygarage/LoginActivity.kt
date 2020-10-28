@@ -18,18 +18,17 @@ class LoginActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val apiHandlerAuthentication = ApiHandlerAuthentication(this)
-        val activity = this
-        val appcontext = this.applicationContext
+        val apiHandlerAuthentication = ApiHandlerAuthentication()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.loginViewModel = LoginViewModel("", "")
         binding.progressBar.visibility = View.INVISIBLE
         binding.button.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             val login = LoginViewModel(binding.editTextTextEmailAddress.text.toString(), binding.editTextTextPassword.text.toString())
+            Util.getInstance().saveLogin(login)
             GlobalScope.launch(Dispatchers.Main) {
                 apiHandlerAuthentication.login(login)
-                val token = Util.getToken(activity)
+                val token = Util.getInstance().getToken()
                 Log.i("LoginActivity", token!!.token)
                 if (token?.token!!.isNotEmpty()) {
                     startActivity(Intent(appcontext, MainActivity::class.java))

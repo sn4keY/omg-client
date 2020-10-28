@@ -9,7 +9,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao, private val activity: Activity) {
+class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
     private var handlerJob = Job()
     private val coroutineScope = CoroutineScope(handlerJob + Dispatchers.Main)
     private val token = "Bearer " + Util.getToken(activity)?.token

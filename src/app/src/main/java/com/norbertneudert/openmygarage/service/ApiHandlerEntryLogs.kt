@@ -7,7 +7,7 @@ import com.norbertneudert.openmygarage.data.entities.EntryLog
 import com.norbertneudert.openmygarage.util.Util
 import kotlinx.coroutines.*
 
-class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLogDao, private val activity: Activity){
+class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLogDao){
     private var handlerJob = Job()
     private val coroutineScope = CoroutineScope(handlerJob + Dispatchers.Main)
 
@@ -20,11 +20,11 @@ class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLog
         @Volatile
         private var INSTANCE: ApiHandlerEntryLogs? = null
 
-        fun getInstance(entryLogsDao: EntryLogDao, activity: Activity) : ApiHandlerEntryLogs {
+        fun getInstance(entryLogsDao: EntryLogDao) : ApiHandlerEntryLogs {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
-                    instance = ApiHandlerEntryLogs(entryLogsDao, activity)
+                    instance = ApiHandlerEntryLogs(entryLogsDao)
                     INSTANCE = instance
                 }
                 return instance
@@ -34,8 +34,7 @@ class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLog
 
     fun refreshDatabase() : Boolean {
         coroutineScope.launch {
-            val token = "Bearer " + Util.getToken(activity)?.token
-            val getEntryLogs = OMGApi.retrofitService.getEntryLogs(token)
+            val getEntryLogs = OMGApi.retrofitService.getEntryLogs()
             populateEntryLogs(getEntryLogs)
         }
         return false
