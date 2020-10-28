@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.norbertneudert.openmygarage.databinding.ActivityLoginBinding
-import com.norbertneudert.openmygarage.service.ApiHandlerAuthentication
+import com.norbertneudert.openmygarage.service.auth.ApiHandlerAuthentication
 import com.norbertneudert.openmygarage.service.models.LoginViewModel
 import com.norbertneudert.openmygarage.util.Util
 import kotlinx.coroutines.*
@@ -30,8 +30,8 @@ class LoginActivity: AppCompatActivity() {
                 apiHandlerAuthentication.login(login)
                 val token = Util.getInstance().getToken()
                 Log.i("LoginActivity", token!!.token)
-                if (token?.token!!.isNotEmpty()) {
-                    startActivity(Intent(appcontext, MainActivity::class.java))
+                if (token.token.isNotEmpty()) {
+                    startActivity(Intent(applicationContext, MainActivity::class.java))
                     finish()
                 }
             }

@@ -1,9 +1,7 @@
 package com.norbertneudert.openmygarage.service
 
-import android.app.Activity
 import com.norbertneudert.openmygarage.data.dao.StoredPlateDao
 import com.norbertneudert.openmygarage.data.entities.StoredPlate
-import com.norbertneudert.openmygarage.util.Util
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback

@@ -3,9 +3,6 @@ package com.norbertneudert.openmygarage.service.auth
 import android.util.Log
 import com.norbertneudert.openmygarage.service.models.TokenViewModel
 import com.norbertneudert.openmygarage.util.Util
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response

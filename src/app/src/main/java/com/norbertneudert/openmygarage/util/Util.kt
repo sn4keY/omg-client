@@ -1,6 +1,5 @@
 package com.norbertneudert.openmygarage.util
 
-import android.app.Activity
 import android.content.Context
 import com.norbertneudert.openmygarage.service.models.LoginViewModel
 import com.norbertneudert.openmygarage.service.models.TokenViewModel
@@ -55,10 +54,10 @@ class Util {
         }
     }
 
-    fun getTokenExpirationInLong(activity: Activity) : Long {
+    fun getTokenExpirationInLong() : Long {
         val epochMicrotimeDiff = 621355968000000000L
-        val sharedPref = activity.getSharedPreferences("API_TOKEN", Context.MODE_PRIVATE)
-        val expiration = sharedPref.getString("expiration", "")!!.toLong()
+        val sharedPref = context?.getSharedPreferences("API_TOKEN", Context.MODE_PRIVATE)
+        val expiration = sharedPref?.getString("expiration", "")!!.toLong()
         return (expiration - epochMicrotimeDiff) / 10000
     }
 

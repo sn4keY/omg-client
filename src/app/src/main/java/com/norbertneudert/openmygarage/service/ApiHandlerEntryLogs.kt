@@ -1,10 +1,7 @@
 package com.norbertneudert.openmygarage.service
 
-import android.app.Activity
-import android.util.Log
 import com.norbertneudert.openmygarage.data.dao.EntryLogDao
 import com.norbertneudert.openmygarage.data.entities.EntryLog
-import com.norbertneudert.openmygarage.util.Util
 import kotlinx.coroutines.*
 
 class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLogDao){
