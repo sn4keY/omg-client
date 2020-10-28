@@ -18,8 +18,13 @@ private const val BASE_URL = "http://192.168.1.180/api/"
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
+private val okHttpClient = OkHttpClient.Builder()
+    .addInterceptor(AuthInterceptor())
+    .authenticator(TokenAuthenticator())
+    .build()
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .client(okHttpClient)
     .baseUrl(BASE_URL)
     .build()
 
