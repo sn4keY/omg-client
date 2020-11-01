@@ -1,6 +1,5 @@
 package com.norbertneudert.openmygarage.service
 
-import android.graphics.Bitmap
 import com.norbertneudert.openmygarage.data.entities.EntryLog
 import com.norbertneudert.openmygarage.data.entities.StoredPlate
 import com.norbertneudert.openmygarage.service.auth.AuthInterceptor
@@ -10,6 +9,7 @@ import com.norbertneudert.openmygarage.service.models.TokenViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -37,7 +37,7 @@ interface OMGApiService {
     suspend fun getEntryLogs() : List<EntryLog>
 
     @GET("entrylog/picture/{logId}")
-    suspend fun getEntryLogPicture(@Path("logId") logId: Long) : Bitmap // TODO: test
+    suspend fun getEntryLogPicture(@Path("logId") logId: Long) : ResponseBody
 
     @GET("storedplate/getall")
     suspend fun getStoredPlates() : List<StoredPlate>

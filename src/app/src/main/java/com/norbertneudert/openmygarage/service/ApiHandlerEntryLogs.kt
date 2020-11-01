@@ -1,5 +1,7 @@
 package com.norbertneudert.openmygarage.service
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import com.norbertneudert.openmygarage.data.dao.EntryLogDao
 import com.norbertneudert.openmygarage.data.entities.EntryLog
 import kotlinx.coroutines.*
@@ -27,6 +29,13 @@ class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLog
                 return instance
             }
         }
+    }
+
+    suspend fun getPicture(id: Long) : Bitmap {
+        val image = GlobalScope.async {
+            OMGApi.retrofitService.getEntryLogPicture(id)
+        }.await()
+        return BitmapFactory.decodeStream(image.byteStream())
     }
 
     fun refreshDatabase() : Boolean {
