@@ -42,11 +42,11 @@ class Util {
     }
 
     fun getToken() : TokenViewModel? {
-        val sharedPref = context?.getSharedPreferences("API_TOKEN", Context.MODE_PRIVATE)
-        val token = sharedPref?.getString("token", "")!!
-        val expiration = sharedPref.getString("expiration", "")!!
+        val sharedPref = context?.getSharedPreferences("API_TOKEN", Context.MODE_PRIVATE)!!
+        val token = sharedPref.getString("token", "")
+        val expiration = sharedPref.getString("expiration", "")
 
-        return TokenViewModel(token, expiration)
+        return TokenViewModel(token!!, expiration!!)
     }
 
     fun destroyToken() {
@@ -81,11 +81,11 @@ class Util {
     }
 
     fun getLogin() : LoginViewModel? {
-        val sharedPref = context?.getSharedPreferences("LOGIN", Context.MODE_PRIVATE)
-        val username = sharedPref?.getString("username", "")!!
-        val password = sharedPref.getString("password", "")!!
+        val sharedPref = context?.getSharedPreferences("LOGIN", Context.MODE_PRIVATE)!!
+        val username = sharedPref.getString("username", "")
+        val password = sharedPref.getString("password", "")
 
-        return LoginViewModel(username, password)
+        return LoginViewModel(username!!, password!!)
     }
 
     fun destroyLogin() {
