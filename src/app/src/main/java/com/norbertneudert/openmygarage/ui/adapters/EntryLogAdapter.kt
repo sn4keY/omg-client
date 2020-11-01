@@ -2,17 +2,24 @@ package com.norbertneudert.openmygarage.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.norbertneudert.openmygarage.R
 import com.norbertneudert.openmygarage.data.entities.EntryLog
 import com.norbertneudert.openmygarage.databinding.LogItemViewBinding
 import com.norbertneudert.openmygarage.util.Util
 
-class EntryLogAdapter : ListAdapter<EntryLog, EntryLogAdapter.ViewHolder>(LogDiffCallback()){
+class EntryLogAdapter(val navController: NavController) : ListAdapter<EntryLog, EntryLogAdapter.ViewHolder>(LogDiffCallback()){
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
+        holder.itemView.setOnClickListener {
+            val bundle = bundleOf("item" to item)
+            navController.navigate(R.id.action_to_nav_extended_log, bundle)
+        }
         holder.bind(item)
     }
 
