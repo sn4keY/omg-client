@@ -1,7 +1,6 @@
 package com.norbertneudert.openmygarage.ui.logs.extended
 
 import android.graphics.Bitmap
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -28,7 +27,6 @@ class ExtendedLogFragment : Fragment() {
         }
     }
 
-    private lateinit var viewModel: ExtendedLogViewModel
     private lateinit var entryLog: EntryLog
     private lateinit var binding: ExtendedLogFragmentBinding
     private lateinit var image: Bitmap
@@ -56,11 +54,4 @@ class ExtendedLogFragment : Fragment() {
 
         return binding.root
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ExtendedLogViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 }
