@@ -24,6 +24,10 @@ class Util {
         }
     }
 
+    fun getContext() : Context? {
+        return this.context
+    }
+
     fun setContext(context: Context) {
         this.context = context
     }
