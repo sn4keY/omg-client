@@ -3,8 +3,8 @@ package com.norbertneudert.openmygarage
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.norbertneudert.openmygarage.databinding.ActivityLoginBinding
 import com.norbertneudert.openmygarage.service.auth.ApiHandlerAuthentication
@@ -29,10 +29,12 @@ class LoginActivity: AppCompatActivity() {
             GlobalScope.launch(Dispatchers.Main) {
                 apiHandlerAuthentication.login(login)
                 val token = Util.getInstance().getToken()
-                Log.i("LoginActivity", token!!.token)
-                if (token.token.isNotEmpty()) {
+                if (token?.token!!.isNotEmpty()) {
                     startActivity(Intent(applicationContext, MainActivity::class.java))
                     finish()
+                } else {
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(applicationContext, "Unauthorized", Toast.LENGTH_LONG).show()
                 }
             }
         }
