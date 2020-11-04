@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="storedPlate"
+            type="com.norbertneudert.openmygarage.data.entities.StoredPlate" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/item_view_style">
+
+        <Button
+            android:id="@+id/piw_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:text="@string/piw_edit_button_text"
+            app:layout_constraintBottom_toBottomOf="@+id/piw_delete_button"
+            app:layout_constraintEnd_toStartOf="@+id/piw_delete_button"
+            app:layout_constraintTop_toTopOf="@+id/piw_delete_button" />
+
+        <Button
+            android:id="@+id/piw_delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:text="@string/piw_delete_button_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/piw_name_tw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/piw_edit_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/piw_edit_button" />
+
+        <TextView
+            android:id="@+id/piw_plate_tw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/piw_edit_button"
+            app:layout_constraintEnd_toStartOf="@+id/piw_edit_button"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
