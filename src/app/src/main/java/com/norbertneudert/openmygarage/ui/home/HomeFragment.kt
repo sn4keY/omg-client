@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.norbertneudert.openmygarage.R
 import com.norbertneudert.openmygarage.data.InAppDatabase
-import com.norbertneudert.openmygarage.data.entities.EntryLog
 import com.norbertneudert.openmygarage.databinding.FragmentHomeBinding
 import com.norbertneudert.openmygarage.service.ApiHandlerEntryLogs
 import com.norbertneudert.openmygarage.ui.adapters.EntryLogAdapter
