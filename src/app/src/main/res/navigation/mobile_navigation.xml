@@ -30,4 +30,13 @@
         android:name="com.norbertneudert.openmygarage.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_extended_log"
+        android:name="com.norbertneudert.openmygarage.ui.logs.extended.ExtendedLogFragment"
+        android:label="extended_log_fragment"
+        tools:layout="@layout/extended_log_fragment" >
+        <argument
+            android:name="entryLog"
+            app:argType="com.norbertneudert.openmygarage.data.entities.EntryLog" />
+    </fragment>
 </navigation>
