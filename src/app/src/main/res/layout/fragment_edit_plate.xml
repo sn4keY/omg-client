@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="storedPlate"
+            type="com.norbertneudert.openmygarage.data.entities.StoredPlate" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/epf_name_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="@string/epf_name_et_hint"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/epf_plate_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="@string/epf_plate_et_hint"
+            android:inputType="text"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/epf_name_et"
+            app:layout_constraintStart_toStartOf="@+id/epf_name_et"
+            app:layout_constraintTop_toBottomOf="@+id/epf_name_et" />
+
+        <EditText
+            android:id="@+id/epf_nation_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="@string/epf_nation_et_hint"
+            android:inputType="textCapCharacters"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/epf_plate_et"
+            app:layout_constraintStart_toStartOf="@+id/epf_plate_et"
+            app:layout_constraintTop_toBottomOf="@+id/epf_plate_et" />
+
+        <EditText
+            android:id="@+id/epf_manufacturer_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="@string/epf_manufacturer_et_hint"
+            android:inputType="text"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/epf_nation_et"
+            app:layout_constraintStart_toStartOf="@+id/epf_nation_et"
+            app:layout_constraintTop_toBottomOf="@+id/epf_nation_et" />
+
+        <Switch
+            android:id="@+id/epf_autoOpen_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/epf_autoOpen_switch_text"
+            app:layout_constraintEnd_toEndOf="@+id/epf_manufacturer_et"
+            app:layout_constraintStart_toStartOf="@+id/epf_manufacturer_et"
+            app:layout_constraintTop_toBottomOf="@+id/epf_manufacturer_et"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <Button
+            android:id="@+id/epf_done_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/epf_done_button_text"
+            app:layout_constraintEnd_toEndOf="@+id/epf_autoOpen_switch"
+            app:layout_constraintStart_toStartOf="@+id/epf_autoOpen_switch"
+            app:layout_constraintTop_toBottomOf="@+id/epf_autoOpen_switch" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
