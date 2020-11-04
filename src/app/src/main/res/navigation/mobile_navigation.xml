@@ -26,10 +26,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.norbertneudert.openmygarage.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_plates"
+        android:name="com.norbertneudert.openmygarage.ui.plates.PlatesFragment"
+        android:label="@string/menu_plate"
+        tools:layout="@layout/fragment_plates" />
     <fragment
         android:id="@+id/nav_extended_log"
         android:name="com.norbertneudert.openmygarage.ui.logs.extended.ExtendedLogFragment"
