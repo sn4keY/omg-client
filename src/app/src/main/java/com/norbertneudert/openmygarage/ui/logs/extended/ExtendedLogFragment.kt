@@ -42,7 +42,7 @@ class ExtendedLogFragment : Fragment() {
         val apiHandlerEntryLogs = ApiHandlerEntryLogs.getInstance(dataSource)
         requireActivity().runOnUiThread( Runnable {
             val job = GlobalScope.launch {
-                image = apiHandlerEntryLogs.getPicture(1)
+                image = apiHandlerEntryLogs.getPicture(entryLog.id)
             }
             while (!job.isCompleted) {
                 Log.i("Download", "Running")
