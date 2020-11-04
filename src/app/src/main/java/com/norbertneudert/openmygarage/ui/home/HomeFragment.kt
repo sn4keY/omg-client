@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.norbertneudert.openmygarage.R
 import com.norbertneudert.openmygarage.data.InAppDatabase
 import com.norbertneudert.openmygarage.data.entities.EntryLog
@@ -31,7 +32,8 @@ class HomeFragment : Fragment() {
         binding.homeFragmentViewModel = homeFragmentViewModel
         binding.setLifecycleOwner(this)
 
-        val adapter = EntryLogAdapter()
+        val navController = this.findNavController()
+        val adapter = EntryLogAdapter(navController)
         binding.homeRecyclerView.adapter = adapter
 
         homeFragmentViewModel.logs.observe(viewLifecycleOwner, Observer {
