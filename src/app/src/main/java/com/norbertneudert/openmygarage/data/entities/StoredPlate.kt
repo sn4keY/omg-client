@@ -13,6 +13,9 @@ data class StoredPlate(
     @ColumnInfo(name = "plate")
     var plate: String = "",
 
+    @ColumnInfo(name = "name")
+    var name: String = "",
+
     @ColumnInfo(name = "nationality")
     var nationality: String = "",
 
