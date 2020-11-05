@@ -15,10 +15,10 @@ interface StoredPlateDao {
     @Query("SELECT * FROM stored_plate_table")
     fun getStoredPlatesList() : List<StoredPlate>
 
-    @Query("SELECT * FROM stored_plate_table WHERE plateId = :key")
+    @Query("SELECT * FROM stored_plate_table WHERE id = :key")
     fun get(key: Long): StoredPlate?
 
-    @Query("SELECT * FROM stored_plate_table ORDER BY plateId DESC LIMIT 1")
+    @Query("SELECT * FROM stored_plate_table ORDER BY id DESC LIMIT 1")
     fun getLastStoredPlate() : StoredPlate?
 
     @Query("DELETE FROM stored_plate_table")

@@ -44,7 +44,7 @@ class EntryLogAdapter(val navController: NavController) : ListAdapter<EntryLog, 
 
 class LogDiffCallback : DiffUtil.ItemCallback<EntryLog>() {
     override fun areItemsTheSame(oldItem: EntryLog, newItem: EntryLog): Boolean {
-        return oldItem.logId == newItem.logId
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: EntryLog, newItem: EntryLog): Boolean {
