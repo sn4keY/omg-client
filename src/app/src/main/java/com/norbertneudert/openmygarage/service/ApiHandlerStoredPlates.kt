@@ -28,8 +28,8 @@ class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
         })
     }
 
-    fun deleteStoredPlate(storedPlate: StoredPlate) {
-        OMGApi.retrofitService.deleteStoredPlate(storedPlate).enqueue(object: Callback<Void> {
+    fun deleteStoredPlate(id: Long) {
+        OMGApi.retrofitService.deleteStoredPlate(id).enqueue(object: Callback<Void> {
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 // TODO("log")
             }

@@ -45,8 +45,8 @@ interface OMGApiService {
     @POST("storedplate/add")
     fun addStoredPlate(@Body storedPlate: StoredPlate) : Call<Void>
 
-    @DELETE("storedplate/delete")
-    fun deleteStoredPlate(@Body storedPlate: StoredPlate) : Call<Void>
+    @HTTP(method = "DELETE", path = "storedplate/delete/{id}", hasBody = true)
+    fun deleteStoredPlate(@Path("id") id: Long) : Call<Void>
 
     @POST("storedplate/update")
     fun updateStoredPlate(@Body storedPlate: StoredPlate) : Call<Void>
