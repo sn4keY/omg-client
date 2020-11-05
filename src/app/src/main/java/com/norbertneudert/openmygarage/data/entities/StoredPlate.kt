@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "stored_plate_table", indices = [Index(value = ["plate"], unique = true)])
 data class StoredPlate(
-    @PrimaryKey(autoGenerate = true)
-    var plateId: Long = 0L,
+    @PrimaryKey(autoGenerate = false)
+    var id: Long = 0L,
 
     @ColumnInfo(name = "plate")
     var plate: String = "",
