@@ -1,5 +1,6 @@
 package com.norbertneudert.openmygarage.service
 
+import android.util.Log
 import com.norbertneudert.openmygarage.data.dao.StoredPlateDao
 import com.norbertneudert.openmygarage.data.entities.StoredPlate
 import kotlinx.coroutines.*
@@ -13,17 +14,27 @@ class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
 
     init {
         clearDatabase()
-        refreshDatabase()
+        refreshDatabase(null)
     }
 
     fun addStoredPlate(storedPlate: StoredPlate) {
+        coroutineScope.launch {
+            onAddStoredPlate(storedPlate)
+        }
+    }
+
+    private suspend fun onAddStoredPlate(storedPlate: StoredPlate) {
+        val lastPlate = getLastStoredPlate()
+        if (lastPlate != null) {
+            storedPlate.id = lastPlate.id + 1
+        }
         OMGApi.retrofitService.addStoredPlate(storedPlate).enqueue(object: Callback<Void> {
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 // TODO("log")
             }
 
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                refreshDatabase()
+                refreshDatabase(null)
             }
         })
     }
@@ -31,11 +42,12 @@ class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
     fun deleteStoredPlate(id: Long) {
         OMGApi.retrofitService.deleteStoredPlate(id).enqueue(object: Callback<Void> {
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                // TODO("log")
+                Log.i("ApiHandlerStoredPlates", t.message!!)
             }
 
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                refreshDatabase()
+                clearDatabase()
+                refreshDatabase(null)
             }
         })
     }
@@ -47,20 +59,22 @@ class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
             }
 
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                refreshDatabase()
+                refreshDatabase(storedPlate)
             }
         })
     }
 
-    fun refreshDatabase() : Boolean {
+    fun refreshDatabase(update: StoredPlate?) : Boolean {
         coroutineScope.launch {
             val getStoredPlates = OMGApi.retrofitService.getStoredPlates()
-            populateStoredPlates(getStoredPlates)
+            if (getStoredPlates.isNotEmpty()) {
+                populateStoredPlates(getStoredPlates, update)
+            }
         }
         return false
     }
 
-    private suspend fun populateStoredPlates(listResult: List<StoredPlate>) {
+    private suspend fun populateStoredPlates(listResult: List<StoredPlate>, update: StoredPlate?) {
         if (!isPlatesUpdated(listResult)) {
             val plateList = getStoredPlatesFromInApp()
             var index = if (plateList?.count() != 0) { listResult.count() - (listResult.count() - plateList!!.count()) } else { 0 }
@@ -69,6 +83,11 @@ class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
                     storedPlatesDao.insert(listResult[index])
                 }
                 index++
+            }
+        }
+        if (update != null) {
+            withContext(Dispatchers.IO) {
+                storedPlatesDao.insert(update)
             }
         }
     }
@@ -81,7 +100,7 @@ class ApiHandlerStoredPlates(private val storedPlatesDao: StoredPlateDao) {
 
     private suspend fun isPlatesUpdated(listResult: List<StoredPlate>): Boolean {
         val lastPlate = getLastStoredPlate()
-        if (lastPlate?.plateId == listResult.last().plateId) {
+        if (lastPlate?.id == listResult.last().id) {
             return true
         }
         return false
