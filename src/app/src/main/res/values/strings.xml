@@ -22,4 +22,7 @@
     <string name="epf_nation_et_hint">Nationality (HU)</string>
     <string name="epf_manufacturer_et_hint">Car manufacturer</string>
     <string name="epf_autoOpen_switch_text">AutoOpen</string>
+
+    <string name="omg_notification_channel_id" translatable="false">omg_channel</string>
+    <string name="omg_notification_channel_name" translatable="true">Open My Garage</string>
 </resources>
