@@ -10,9 +10,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_log">Logs</string>
     <string name="menu_plate">Plates</string>
-    <string name="edittext_email_hint">Email address</string>
-    <string name="edittext_password_hint">Password</string>
-    <string name="button_login_text">Login</string>
+    <string name="title_extended_log">Log</string>
     <string name="extended_image_description">Image of entry log</string>
     <string name="piw_edit_button_text">Edit</string>
     <string name="piw_delete_button_text">Delete</string>

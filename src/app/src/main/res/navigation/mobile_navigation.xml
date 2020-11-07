@@ -33,7 +33,7 @@
     <fragment
         android:id="@+id/nav_extended_log"
         android:name="com.norbertneudert.openmygarage.ui.logs.extended.ExtendedLogFragment"
-        android:label="extended_log_fragment"
+        android:label="@string/title_extended_log"
         tools:layout="@layout/extended_log_fragment" >
         <argument
             android:name="entryLog"
