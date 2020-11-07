@@ -24,16 +24,41 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/extended_tw_plate_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="100dp"
+            android:autoSizeMinTextSize="36sp"
+            android:text="@string/extended_tw_plate_label"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="@+id/extended_tw_entry_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/extended_image" />
+
+        <TextView
             android:id="@+id/extended_tw_plate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             android:background="@drawable/item_view_style"
             android:padding="10dp"
             android:text="@{entryLog.plate}"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/extended_tw_plate_label"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/extended_tw_plate_label"
+            app:layout_constraintTop_toTopOf="@+id/extended_tw_plate_label" />
+
+        <TextView
+            android:id="@+id/extended_tw_entry_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:autoSizeMinTextSize="36sp"
+            android:text="@string/extended_tw_entry_label"
+            android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extended_image" />
+            app:layout_constraintTop_toBottomOf="@+id/extended_tw_plate_label" />
 
         <TextView
             android:id="@+id/extended_tw_entry"
@@ -41,10 +66,11 @@
             android:layout_height="wrap_content"
             android:background="@drawable/item_view_style"
             android:padding="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/extended_tw_entry_label"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extended_tw_plate" />
+            app:layout_constraintStart_toEndOf="@+id/extended_tw_entry_label"
+            app:layout_constraintTop_toTopOf="@+id/extended_tw_entry_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
