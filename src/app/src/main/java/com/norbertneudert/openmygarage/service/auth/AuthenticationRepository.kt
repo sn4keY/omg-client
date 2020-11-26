@@ -5,16 +5,16 @@ import com.norbertneudert.openmygarage.service.models.LoginViewModel
 import com.norbertneudert.openmygarage.util.Util
 import kotlinx.coroutines.*
 
-class ApiHandlerAuthentication() {
+class AuthenticationRepository() {
     companion object {
         @Volatile
-        private var INSTANCE: ApiHandlerAuthentication? = null
+        private var INSTANCE: AuthenticationRepository? = null
 
-        fun getInstance() : ApiHandlerAuthentication {
+        fun getInstance() : AuthenticationRepository {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
-                    instance = ApiHandlerAuthentication()
+                    instance = AuthenticationRepository()
                     INSTANCE = instance
                 }
                 return instance

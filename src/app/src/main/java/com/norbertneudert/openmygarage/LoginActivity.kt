@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.norbertneudert.openmygarage.databinding.ActivityLoginBinding
-import com.norbertneudert.openmygarage.service.auth.ApiHandlerAuthentication
+import com.norbertneudert.openmygarage.service.auth.AuthenticationRepository
 import com.norbertneudert.openmygarage.service.models.LoginViewModel
 import com.norbertneudert.openmygarage.util.Util
 import kotlinx.coroutines.*
@@ -18,7 +18,7 @@ class LoginActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val apiHandlerAuthentication = ApiHandlerAuthentication()
+        val apiHandlerAuthentication = AuthenticationRepository()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.loginViewModel = LoginViewModel("", "")
         binding.progressBar.visibility = View.INVISIBLE
