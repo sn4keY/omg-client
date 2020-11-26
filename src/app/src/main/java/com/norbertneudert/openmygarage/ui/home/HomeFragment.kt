@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -45,7 +46,16 @@ class HomeFragment : Fragment() {
             refreshDatabase()
         }
 
+        binding.homeFab.setOnClickListener {
+            Toast.makeText(context, "Opening/Closing Gate", Toast.LENGTH_LONG).show()
+            toggleGate()
+        }
+
         return binding.root
+    }
+
+    private fun toggleGate() {
+        entryLogsRepository.toggleGate()
     }
 
     private fun refreshDatabase() {

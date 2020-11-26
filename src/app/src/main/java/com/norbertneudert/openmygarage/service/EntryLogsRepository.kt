@@ -31,6 +31,10 @@ class EntryLogsRepository private constructor(private val entryLogsDao: EntryLog
         }
     }
 
+    fun toggleGate() {
+        OMGApi.retrofitService.openGate()
+    }
+
     suspend fun getPicture(id: Long) : Bitmap {
         val image = GlobalScope.async {
             OMGApi.retrofitService.getEntryLogPicture(id)
