@@ -12,7 +12,7 @@ import com.norbertneudert.openmygarage.R
 import com.norbertneudert.openmygarage.data.InAppDatabase
 import com.norbertneudert.openmygarage.data.entities.StoredPlate
 import com.norbertneudert.openmygarage.databinding.FragmentPlatesBinding
-import com.norbertneudert.openmygarage.service.ApiHandlerStoredPlates
+import com.norbertneudert.openmygarage.service.StoredPlatesRepository
 import com.norbertneudert.openmygarage.ui.adapters.PlateAdapter
 import com.norbertneudert.openmygarage.ui.plates.editor.EditPlateFragment
 
@@ -20,13 +20,13 @@ class PlatesFragment : Fragment(), EditPlateFragment.EditPlateDialogListener {
 
     private lateinit var platesViewModel: PlatesViewModel
     private lateinit var binding: FragmentPlatesBinding
-    private lateinit var apiHandler: ApiHandlerStoredPlates
+    private lateinit var apiHandler: StoredPlatesRepository
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_plates, container, false)
 
         val dataSource = InAppDatabase.getInstance(requireContext()).storedPlateDao
-        apiHandler = ApiHandlerStoredPlates(dataSource)
+        apiHandler = StoredPlatesRepository(dataSource)
 
         val viewModelFactory = PlatesViewModelFactory(dataSource, requireActivity().application)
         platesViewModel = ViewModelProviders.of(this, viewModelFactory).get(PlatesViewModel::class.java)

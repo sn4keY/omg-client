@@ -6,7 +6,7 @@ import com.norbertneudert.openmygarage.data.dao.EntryLogDao
 import com.norbertneudert.openmygarage.data.entities.EntryLog
 import kotlinx.coroutines.*
 
-class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLogDao){
+class EntryLogsRepository private constructor(private val entryLogsDao: EntryLogDao){
     private var handlerJob = Job()
     private val coroutineScope = CoroutineScope(handlerJob + Dispatchers.Main)
 
@@ -17,13 +17,13 @@ class ApiHandlerEntryLogs private constructor(private val entryLogsDao: EntryLog
 
     companion object {
         @Volatile
-        private var INSTANCE: ApiHandlerEntryLogs? = null
+        private var INSTANCE: EntryLogsRepository? = null
 
-        fun getInstance(entryLogsDao: EntryLogDao) : ApiHandlerEntryLogs {
+        fun getInstance(entryLogsDao: EntryLogDao) : EntryLogsRepository {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
-                    instance = ApiHandlerEntryLogs(entryLogsDao)
+                    instance = EntryLogsRepository(entryLogsDao)
                     INSTANCE = instance
                 }
                 return instance

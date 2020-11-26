@@ -12,7 +12,7 @@ import com.norbertneudert.openmygarage.R
 import com.norbertneudert.openmygarage.data.InAppDatabase
 import com.norbertneudert.openmygarage.data.entities.EntryLog
 import com.norbertneudert.openmygarage.databinding.ExtendedLogFragmentBinding
-import com.norbertneudert.openmygarage.service.ApiHandlerEntryLogs
+import com.norbertneudert.openmygarage.service.EntryLogsRepository
 import com.norbertneudert.openmygarage.util.Util
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -39,7 +39,7 @@ class ExtendedLogFragment : Fragment() {
         binding.extendedTwEntry.setText(Util.getInstance().getFormattedDateFromLong(entryLog.entryTime))
 
         val dataSource = InAppDatabase.getInstance(requireContext()).entryLogDao
-        val apiHandlerEntryLogs = ApiHandlerEntryLogs.getInstance(dataSource)
+        val apiHandlerEntryLogs = EntryLogsRepository.getInstance(dataSource)
         requireActivity().runOnUiThread( Runnable {
             val job = GlobalScope.launch {
                 image = apiHandlerEntryLogs.getPicture(entryLog.id)

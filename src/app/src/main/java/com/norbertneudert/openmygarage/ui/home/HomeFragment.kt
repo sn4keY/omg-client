@@ -12,19 +12,19 @@ import androidx.navigation.fragment.findNavController
 import com.norbertneudert.openmygarage.R
 import com.norbertneudert.openmygarage.data.InAppDatabase
 import com.norbertneudert.openmygarage.databinding.FragmentHomeBinding
-import com.norbertneudert.openmygarage.service.ApiHandlerEntryLogs
+import com.norbertneudert.openmygarage.service.EntryLogsRepository
 import com.norbertneudert.openmygarage.ui.adapters.EntryLogAdapter
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeFragmentViewModel: HomeFragmentViewModel
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var apiHandler: ApiHandlerEntryLogs
+    private lateinit var entryLogsRepository: EntryLogsRepository
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         val dataSource = InAppDatabase.getInstance(requireContext()).entryLogDao
-        apiHandler = ApiHandlerEntryLogs.getInstance(dataSource)
+        entryLogsRepository = EntryLogsRepository.getInstance(dataSource)
         val application = requireNotNull(this.activity).application
         val viewModelFactory = HomeFragmentViewModelFactory(dataSource, application)
         homeFragmentViewModel = ViewModelProviders.of(this, viewModelFactory).get(HomeFragmentViewModel::class.java)
@@ -49,6 +49,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun refreshDatabase() {
-        binding.homeSwipeRefreshLayout.isRefreshing = apiHandler.refreshDatabase()
+        binding.homeSwipeRefreshLayout.isRefreshing = entryLogsRepository.refreshDatabase()
     }
 }

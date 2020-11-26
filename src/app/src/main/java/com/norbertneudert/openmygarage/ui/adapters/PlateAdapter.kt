@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.norbertneudert.openmygarage.data.entities.StoredPlate
 import com.norbertneudert.openmygarage.databinding.PlateItemViewBinding
-import com.norbertneudert.openmygarage.service.ApiHandlerStoredPlates
+import com.norbertneudert.openmygarage.service.StoredPlatesRepository
 import com.norbertneudert.openmygarage.ui.plates.editor.EditPlateFragment
 
-class PlateAdapter(private val apiHandlerStoredPlates: ApiHandlerStoredPlates, private val supportFragmentManager: FragmentManager, private val parent: Fragment) : ListAdapter<StoredPlate, PlateAdapter.ViewHolder>(PlateDiffCallback()) {
+class PlateAdapter(private val apiHandlerStoredPlates: StoredPlatesRepository, private val supportFragmentManager: FragmentManager, private val parent: Fragment) : ListAdapter<StoredPlate, PlateAdapter.ViewHolder>(PlateDiffCallback()) {
 
     override fun onBindViewHolder(holder: PlateAdapter.ViewHolder, position: Int) {
         val item = getItem(position)
@@ -24,7 +24,7 @@ class PlateAdapter(private val apiHandlerStoredPlates: ApiHandlerStoredPlates, p
     }
 
     class ViewHolder private constructor(val binding: PlateItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: StoredPlate, parent: Fragment, supportFragmentManager: FragmentManager, apiHandlerStoredPlates: ApiHandlerStoredPlates) {
+        fun bind(item: StoredPlate, parent: Fragment, supportFragmentManager: FragmentManager, apiHandlerStoredPlates: StoredPlatesRepository) {
             binding.piwNameTw.text = item.name
             binding.piwPlateTw.text = item.plate
             binding.piwEditButton.setOnClickListener {
