@@ -1,6 +1,9 @@
 package com.norbertneudert.openmygarage.util
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
 import com.norbertneudert.openmygarage.service.models.LoginViewModel
 import com.norbertneudert.openmygarage.service.models.TokenViewModel
 import java.text.SimpleDateFormat
@@ -30,6 +33,12 @@ class Util {
 
     fun setContext(context: Context) {
         this.context = context
+    }
+
+    fun insufficientPermission(){
+        Handler(Looper.getMainLooper()).post {
+            Toast.makeText(context!!, "Insufficient permission", Toast.LENGTH_LONG).show()
+        }
     }
 
     fun saveToken(tokenViewModel: TokenViewModel) {

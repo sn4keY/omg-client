@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.homeFab.setOnClickListener {
-            Toast.makeText(context, "Opening/Closing Gate", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Opening/Closing Gate", Toast.LENGTH_SHORT).show()
             toggleGate()
         }
 
