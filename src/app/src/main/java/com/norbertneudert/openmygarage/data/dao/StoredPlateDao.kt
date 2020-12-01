@@ -21,6 +21,9 @@ interface StoredPlateDao {
     @Query("SELECT * FROM stored_plate_table ORDER BY id DESC LIMIT 1")
     fun getLastStoredPlate() : StoredPlate?
 
+    @Query("SELECT * FROM stored_plate_table WHERE plate = :plate")
+    fun get(plate: String): StoredPlate?
+
     @Query("DELETE FROM stored_plate_table")
     fun clear()
 

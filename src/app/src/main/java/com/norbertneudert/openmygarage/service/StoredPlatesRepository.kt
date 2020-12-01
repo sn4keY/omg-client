@@ -17,9 +17,31 @@ class StoredPlatesRepository(private val storedPlatesDao: StoredPlateDao) {
         refreshDatabase(null)
     }
 
+    companion object  {
+        @Volatile
+        private var INSTANCE: StoredPlatesRepository? = null
+
+        fun getInstance(storedPlatesDao: StoredPlateDao): StoredPlatesRepository {
+            synchronized(this){
+                var instance = INSTANCE
+                if (instance == null) {
+                    instance = StoredPlatesRepository(storedPlatesDao)
+                    INSTANCE = instance
+                }
+                return instance
+            }
+        }
+    }
+
     fun addStoredPlate(storedPlate: StoredPlate) {
         coroutineScope.launch {
             onAddStoredPlate(storedPlate)
+        }
+    }
+
+    suspend fun get(plate: String): StoredPlate? {
+        return withContext(Dispatchers.IO) {
+            storedPlatesDao.get(plate)
         }
     }
 
@@ -34,7 +56,7 @@ class StoredPlatesRepository(private val storedPlatesDao: StoredPlateDao) {
             }
 
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                refreshDatabase(null)
+                refreshDatabase(storedPlate)
             }
         })
     }

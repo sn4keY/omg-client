@@ -11,8 +11,11 @@ import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.norbertneudert.openmygarage.R
+import com.norbertneudert.openmygarage.data.InAppDatabase
 import com.norbertneudert.openmygarage.data.entities.StoredPlate
 import com.norbertneudert.openmygarage.databinding.FragmentEditPlateBinding
+import com.norbertneudert.openmygarage.service.StoredPlatesRepository
+import kotlinx.coroutines.runBlocking
 import java.util.*
 
 class EditPlateFragment(var storedPlate: StoredPlate, val exists: Boolean) : DialogFragment() {
@@ -99,5 +102,18 @@ class EditPlateFragment(var storedPlate: StoredPlate, val exists: Boolean) : Dia
         }
     }
 
-    fun String.isPlate() : Boolean = this.length == 7 && this[3] == '-'
+    fun String.isPlate() : Boolean {
+        val plate = this
+        val repo = StoredPlatesRepository.getInstance(InAppDatabase.getInstance(requireContext()).storedPlateDao)
+        var existing = false
+        runBlocking {
+            val storedPlate = repo.get(plate)
+            existing = storedPlate != null
+        }
+        return if (existing) {
+            false
+        } else {
+            this.length == 7 && this[3] == '-'
+        }
+    }
 }
