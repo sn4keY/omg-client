@@ -36,9 +36,15 @@ class EntryLogsRepository private constructor(private val entryLogsDao: EntryLog
     }
 
     fun toggleGate() {
-        coroutineScope.launch {
-            onToggleGate()
-        }
+        OMGApi.retrofitService.openGate().enqueue(object: Callback<Void> {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.i("OpenGate", t.message!!)
+            }
+
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                Log.i("OpenGate", "Opening/closing gate")
+            }
+        })
     }
 
     suspend fun getPicture(id: Long) : Bitmap {
@@ -54,18 +60,6 @@ class EntryLogsRepository private constructor(private val entryLogsDao: EntryLog
             populateEntryLogs(getEntryLogs)
         }
         return false
-    }
-
-    private suspend fun onToggleGate() {
-        OMGApi.retrofitService.openGate().enqueue(object: Callback<Void> {
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.i("OpenGate", t.message!!)
-            }
-
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                Log.i("OpenGate", "Opening/closing gate")
-            }
-        })
     }
 
     private suspend fun populateEntryLogs(entryLogs: List<EntryLog>) {
