@@ -2,9 +2,13 @@ package com.norbertneudert.openmygarage.service
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Log
 import com.norbertneudert.openmygarage.data.dao.EntryLogDao
 import com.norbertneudert.openmygarage.data.entities.EntryLog
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class EntryLogsRepository private constructor(private val entryLogsDao: EntryLogDao){
     private var handlerJob = Job()
@@ -32,7 +36,9 @@ class EntryLogsRepository private constructor(private val entryLogsDao: EntryLog
     }
 
     fun toggleGate() {
-        OMGApi.retrofitService.openGate()
+        coroutineScope.launch {
+            onToggleGate()
+        }
     }
 
     suspend fun getPicture(id: Long) : Bitmap {
@@ -48,6 +54,18 @@ class EntryLogsRepository private constructor(private val entryLogsDao: EntryLog
             populateEntryLogs(getEntryLogs)
         }
         return false
+    }
+
+    private suspend fun onToggleGate() {
+        OMGApi.retrofitService.openGate().enqueue(object: Callback<Void> {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.i("OpenGate", t.message!!)
+            }
+
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                Log.i("OpenGate", "Opening/closing gate")
+            }
+        })
     }
 
     private suspend fun populateEntryLogs(entryLogs: List<EntryLog>) {
