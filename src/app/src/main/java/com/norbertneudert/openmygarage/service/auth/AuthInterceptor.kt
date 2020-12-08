@@ -12,6 +12,11 @@ class AuthInterceptor : Interceptor {
         if (response.code() == 403) {
             response = response.newBuilder().code(200).build()
             Util.getInstance().insufficientPermission()
+        } else if (response.code() == 401) {
+            return response.newBuilder().code(200).body(ResponseBody.create(MediaType.get("application/json"),"{\n" +
+                    "    \"token\": \"\",\n" +
+                    "    \"expiration\": 0\n" +
+                    "}")).build()
         }
         return response
     }
